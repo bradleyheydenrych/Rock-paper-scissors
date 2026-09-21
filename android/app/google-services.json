@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "519612206948",
+    "project_id": "rps-flutter-firebase",
+    "storage_bucket": "rps-flutter-firebase.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519612206948:android:de169146ef56f81bbe3471",
+        "android_client_info": {
+          "package_name": "com.example.rps_flutter_firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPD3WUIPLBmRz1NzEME38I-d3feMMwhXg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
