@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'game_screen.dart';
+import 'leaderboard_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -65,6 +66,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding:
                         EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                     child: Text('Play'),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                OutlinedButton(
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => const LeaderboardScreen()),
+                  ),
+                  child: const Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                    child: Text('Leaderboard'),
                   ),
                 ),
               ],

@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import '../services/firestore_service.dart';
 import '../widgets/choice_button.dart';
 
 class GameScreen extends StatefulWidget {
@@ -11,6 +12,7 @@ class GameScreen extends StatefulWidget {
 }
 
 class _GameScreenState extends State<GameScreen> {
+  final _firestoreService = FirestoreService();
   final _random = Random();
 
   RpsChoice? _playerChoice;
@@ -21,7 +23,11 @@ class _GameScreenState extends State<GameScreen> {
   int _sessionLosses = 0;
   int _sessionTies = 0;
 
-  void _play(RpsChoice playerChoice) {
+  bool _submitting = false;
+
+  Future<void> _play(RpsChoice playerChoice) async {
+    if (_submitting) return;
+
     final computerChoice = RpsChoice.values[_random.nextInt(3)];
     final String result;
     if (playerChoice == computerChoice) {
@@ -43,7 +49,23 @@ class _GameScreenState extends State<GameScreen> {
       if (result == 'win') _sessionWins++;
       if (result == 'loss') _sessionLosses++;
       if (result == 'tie') _sessionTies++;
+      _submitting = true;
     });
+
+    try {
+      await _firestoreService.recordResult(widget.playerName, result: result);
+    } catch (_) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content:
+                Text("Couldn't reach the leaderboard — round still counted locally"),
+          ),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _submitting = false);
+    }
   }
 
   @override
